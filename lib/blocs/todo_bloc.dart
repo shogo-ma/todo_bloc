@@ -30,6 +30,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       case AddTodo:
         yield* _mapAddTodoEventToState(event);
         break;
+      case DeleteTodo:
+        yield* _mapDeleteTodoEventToState(event);
+        break;
     }
   }
 
@@ -48,6 +51,17 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         ..add(event.todo);
       yield TodosLoaded(todos);
       this.todoRepository.add(event.todo);
+    }
+  }
+
+  Stream<TodoState> _mapDeleteTodoEventToState(DeleteTodo event) async* {
+    if (state is TodosLoaded) {
+      final List<Todo> todos = (state as TodosLoaded)
+          .todos
+          .where((todo) => todo.id != event.todo.id)
+          .toList();
+      yield TodosLoaded(todos);
+      this.todoRepository.delete(event.todo);
     }
   }
 }

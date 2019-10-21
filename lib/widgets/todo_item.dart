@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:todo_bloc/models/todo.dart';
 
 class TodoItem extends StatelessWidget {
+  final VoidCallback onItemTap;
+
   final Todo todo;
 
-  TodoItem({this.todo});
+  TodoItem({this.todo, this.onItemTap});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class TodoItem extends StatelessWidget {
         ),
         child: ListTile(
           title: Text(todo.content),
-          onTap: () {},
+          onTap: onItemTap,
         ));
   }
 }
