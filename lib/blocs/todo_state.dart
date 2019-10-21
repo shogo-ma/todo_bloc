@@ -1,3 +1,10 @@
+/*
+ * The file is:
+ * Copyright (c) 2018 Felix Angelov
+ * Released under the MIT license.
+ * see https://opensource.org/licenses/MIT
+*/
+
 import 'package:equatable/equatable.dart';
 import 'package:todo_bloc/models/todo.dart';
 
