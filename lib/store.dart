@@ -13,6 +13,10 @@ class Store {
     this._todos.addAll(todos);
   }
 
+  void delete(Todo todo) {
+    this._todos.removeWhere((item) => item.id == todo.id);
+  }
+
   void deleteAll() {
     this._todos = [];
   }

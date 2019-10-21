@@ -6,6 +6,7 @@ abstract class TodoRepository {
 
   void add(Todo todo);
   void addAll(List<Todo> todos);
+  void delete(Todo todo);
 }
 
 class TodoRepositoryImpl extends TodoRepository {
@@ -23,5 +24,9 @@ class TodoRepositoryImpl extends TodoRepository {
 
   void addAll(List<Todo> todos) {
     this.store.addAll(todos);
+  }
+
+  void delete(Todo todo) {
+    this.store.delete(todo);
   }
 }

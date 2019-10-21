@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_bloc/blocs/todo_bloc.dart';
+import 'package:todo_bloc/blocs/todo_event.dart';
 import 'package:todo_bloc/blocs/todo_state.dart';
 import 'package:todo_bloc/screens/add_todo_screen.dart';
+import 'package:todo_bloc/screens/detail_screen.dart';
 import 'package:todo_bloc/widgets/todo_item.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,6 +18,7 @@ class HomeScreen extends StatelessWidget {
           ),
         );
       } else if (state is TodosLoaded) {
+        debugPrint("${state.toString()}");
         final todos = state.todos;
         return Scaffold(
           appBar: AppBar(
@@ -23,7 +26,16 @@ class HomeScreen extends StatelessWidget {
           ),
           body: ListView.builder(
               itemBuilder: (context, index) {
-                return TodoItem(todo: todos[index]);
+                return TodoItem(
+                  todo: todos[index],
+                  onItemTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DetailScreen(todo: todos[index])));
+                  },
+                );
               },
               itemCount: todos.length),
           floatingActionButton: FloatingActionButton(
