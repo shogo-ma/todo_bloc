@@ -7,7 +7,7 @@ class Todo {
   final uuid = Uuid();
 
   Todo(String _content) {
-    this.content = content;
+    this.content = _content;
     this.id = uuid.v4();
   }
 }
