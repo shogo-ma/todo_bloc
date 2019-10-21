@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:todo_bloc/blocs/todo_event.dart';
 import 'package:todo_bloc/blocs/todo_state.dart';
+import 'package:todo_bloc/models/todo.dart';
 import 'package:todo_bloc/repositories/todo.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
@@ -19,6 +20,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       case LoadTodos:
         yield* _mapLoadEventToState(event);
         break;
+      case AddTodo:
+        yield* _mapAddTodoEventToState(event);
+        break;
     }
   }
 
@@ -28,6 +32,15 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       yield TodosLoaded(todos);
     } catch (_) {
       yield TodosNotLoaded();
+    }
+  }
+
+  Stream<TodoState> _mapAddTodoEventToState(AddTodo event) async* {
+    if (state is TodosLoaded) {
+      final List<Todo> todos = List.from((state as TodosLoaded).todos)
+        ..add(event.todo);
+      yield TodosLoaded(todos);
+      this.todoRepository.add(event.todo);
     }
   }
 }

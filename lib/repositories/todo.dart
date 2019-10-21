@@ -1,11 +1,27 @@
 import 'package:todo_bloc/models/todo.dart';
+import 'package:todo_bloc/store.dart';
 
 abstract class TodoRepository {
   List<Todo> findAll();
+
+  void add(Todo todo);
+  void addAll(List<Todo> todos);
 }
 
 class TodoRepositoryImpl extends TodoRepository {
+  final Store store;
+
+  TodoRepositoryImpl({this.store});
+
   List<Todo> findAll() {
-    return [Todo("test1"), Todo("test2")];
+    return this.store.get();
+  }
+
+  void add(Todo todo) {
+    this.store.add(todo);
+  }
+
+  void addAll(List<Todo> todos) {
+    this.store.addAll(todos);
   }
 }
