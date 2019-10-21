@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_bloc/blocs/todo_bloc.dart';
 import 'package:todo_bloc/blocs/todo_state.dart';
 import 'package:todo_bloc/screens/add_todo_screen.dart';
+import 'package:todo_bloc/widgets/todo_item.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -15,14 +16,16 @@ class HomeScreen extends StatelessWidget {
           ),
         );
       } else if (state is TodosLoaded) {
-        final todos = state.todos.map((f) => Text(f.content)).toList();
+        final todos = state.todos;
         return Scaffold(
           appBar: AppBar(
             title: Text("todos"),
           ),
-          body: ListView(
-            children: todos,
-          ),
+          body: ListView.builder(
+              itemBuilder: (context, index) {
+                return TodoItem(todo: todos[index]);
+              },
+              itemCount: todos.length),
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
             onPressed: () {
