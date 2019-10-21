@@ -23,6 +23,9 @@ class AddTodoScreen extends StatelessWidget {
     );
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text("todos"),
+      ),
       body: Center(
         child: Column(
           children: <Widget>[
