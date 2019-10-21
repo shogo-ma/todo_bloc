@@ -4,10 +4,12 @@ import 'package:todo_bloc/blocs/todo_bloc.dart';
 import 'package:todo_bloc/blocs/todo_event.dart';
 import 'package:todo_bloc/repositories/todo.dart';
 import 'package:todo_bloc/screens/home_screen.dart';
+import 'package:todo_bloc/store.dart';
 
 void main() => runApp(BlocProvider(
     builder: (context) {
-      return TodoBloc(todoRepository: TodoRepositoryImpl())..add(LoadTodos());
+      return TodoBloc(todoRepository: TodoRepositoryImpl(store: Store()))
+        ..add(LoadTodos());
     },
     child: MyApp()));
 
